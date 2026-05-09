@@ -9,3 +9,4 @@ node_modules/
 .github/workflows/playwright.yml
 /allure-results/
 /allure-report/
+/tta-report/

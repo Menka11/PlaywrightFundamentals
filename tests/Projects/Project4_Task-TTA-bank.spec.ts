@@ -21,8 +21,10 @@ test("Transfer money and verify the final balance in TTA bank application",async
     await page.locator('//button[normalize-space()="Dashboard"]').click();
 
     let finalBalance:any = initialBalance - tranferAmount;
+    console.log("Final Balance:", finalBalance);
     await page.waitForTimeout(3000);
     expect(Number((await page.locator("//p[text()='Total Balance']/following-sibling::h3").innerText()).replace(/[^0-9.]/g,''))).toBe(finalBalance);
 
+   
 
 })
