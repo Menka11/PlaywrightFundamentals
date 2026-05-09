@@ -25,15 +25,19 @@ test("Search username form table and verify it",async({page})=>{
     await page.waitForTimeout(5000);
 
 
+    
+})
+test("Selected multiple employee name and verify it",async({page})=>{
+     await page.goto("https://app.thetestingacademy.com/playwright/webtable");
     //multiple selection 
-    // let selectedEmployee = [];
-    // for (let i = 1; i< 4; i++){
-    //     const toBeSelect = `//tbody//tr[${i}]//td[1]`;
-    //     await page.locator(`${toBeSelect}//input[@type='checkbox']`).check();
-    //     const getUsername = page.locator(`${toBeSelect}/following-sibling::td[@class='username']`);
-    //     selectedEmployee.push(await getUsername.innerText());
-    // }
-    // const selectedEmployeeList = selectedEmployee.join(", "); 
-    // await expect(page.locator('#selected-output')).toContainText(selectedEmployeeList);
+    let selectedEmployee = [];
+    for (let i = 1; i< 4; i++){
+        const toBeSelect = `//tbody//tr[${i}]//td[1]`;
+        await page.locator(`${toBeSelect}//input[@type='checkbox']`).check();
+        const getUsername = page.locator(`${toBeSelect}/following-sibling::td[@class='username']`);
+        selectedEmployee.push(await getUsername.innerText());
+    }
+    const selectedEmployeeList = selectedEmployee.join(", "); 
+    await expect(page.locator('#selected-output')).toContainText(selectedEmployeeList);
 
 })
