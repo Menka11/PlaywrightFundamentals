@@ -1,4 +1,5 @@
 import {test, expect} from '@playwright/test';
+import { json } from 'node:stream/consumers';
 test("Handle Single frame",async({page})=>{
     await page.goto('https://app.thetestingacademy.com/playwright/frames/');
     let mainFrame = page.frameLocator('//iframe[@id="frame-one"]');
@@ -31,7 +32,17 @@ test("Handle multiple frame",async({page})=>{
     await mainFrame.locator('//textarea[@id="RESULT_TextArea-1"]').fill('This is practice of iframe');
     await mainFrame.getByTestId('vehicle-submit').click();
     let output = await mainFrame.locator('//div[@id="vehicle-output"]').innerText();
-    expect(output).toContain( 'Grandi10');
+    console.log(output);
+    const jsonOutput = JSON.parse(output);
+    expect(jsonOutput).toMatchObject({
+        "vehicleName": "Grandi10",
+        "ownerName": "Menka Patel",
+        "regNumber": "MH-12-AC-1234",
+        "vehicleType": "Hatchback",
+        "year": "2026",
+        "notes": "This is practice of iframe"
+    })
+    
 
     await expect(footerFrame.getByTestId('footer-build')).toBeVisible();
 
